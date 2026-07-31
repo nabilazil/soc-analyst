@@ -31,3 +31,64 @@ Shodan is a search engine for Internet-connected devices. Unlike Google (which s
 1. **Find exposed RDP servers in Morocco** (High risk for brute-force):
    ```text
    port:3389 country:MA
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+# VirusTotal
+
+## 📖 Overview
+VirusTotal is a free online service that analyzes files, URLs, domains, and IP addresses for malware. It aggregates results from multiple antivirus engines and security tools to provide a comprehensive threat detection report.
+
+## 🎯 Why a SOC Analyst Needs It
+- **File Analysis**: Check if suspicious files (attachments, downloads) are malicious
+- **IOC Verification**: Validate Indicators of Compromise (IPs, domains, URLs, hashes)
+- **Threat Intelligence**: Get detection ratios and community comments on threats
+- **Incident Response**: Quickly triage suspicious artifacts during investigations
+- **YARA Rules**: Detect malware using custom YARA rule matching
+
+## 🛠️ Key Features (SOC Focus)
+
+| Feature | Description |
+|---------|-------------|
+| **File Scan** | Upload files (up to 650MB) to check against 70+ antivirus engines |
+| **URL/Domain Scan** | Analyze suspicious URLs and domains for phishing/malware |
+| **IP Address Analysis** | Check IP reputation and associated threats |
+| **Hash Lookup** | Search by MD5, SHA-1, or SHA-256 without uploading files |
+| **VirusTotal Intelligence** | Advanced search and hunting (premium feature) |
+| **Community Comments** | Read analyst comments and threat reports |
+
+## 💡 Practical SOC Examples
+
+1. **Check a suspicious file hash** (without uploading):
+   - Go to "Search" tab
+   - Enter hash: `e99a18c428cb38d5f260853678922e03`
+   - Review detection ratio (e.g., 45/70 engines detected it)
+
+2. **Analyze a suspicious URL**:
+   - Go to "URL" tab
+   - Paste: `http://suspicious-site.com/malware.exe`
+   - Check for phishing, malware, or C2 indicators
+
+3. **Investigate a malicious IP**:
+   - Go to "IP Address" tab
+   - Enter: `185.220.101.1`
+   - Review:
+     - Detection ratio
+     - Country/ASN info
+     - Associated domains
+     - Passive DNS data
+
+4. **Check domain reputation**:
+   - Go to "Domain" tab
+   - Enter: `malicious-domain.com`
+   - Review:
+     - Categories (phishing, malware, C2)
+     - Subdomains
+     - Communicating files
+     - Referrer files
+
+5. **Use VirusTotal API** (for automation):
+   ```bash
+   # Check file hash via API
+   curl --request GET --url https://www.virustotal.com/api/v3/files/{hash} \
+   --header 'x-apikey: YOUR_API_KEY'
