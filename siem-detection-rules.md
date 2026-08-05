@@ -13,6 +13,7 @@ Essential detection rules every SOC Analyst should know.
 | **USB Device Connected** | USB plug-in detected | 20001/20003 | 🟡 Medium |
 | **Large Outbound Transfer** | Outbound traffic > 25 MB | Network logs | 🔴 High |
 | **PowerShell Execution** | PowerShell script executed | 4104 | 🟡 Medium |
+| **User Added to Backup Operators** | EventID = 4732 AND TargetUserName = "Backup Operators" | 4732 | 🔴 Critical |
 
 ## Key Windows Event IDs
 
