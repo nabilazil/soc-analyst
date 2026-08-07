@@ -41,3 +41,13 @@ Essential detection rules every SOC Analyst should know.
    - Isolate infected host
    - Block suspicious IP
    - Escalate to Tier 2
+
+
+## Process Monitoring (Sysmon vs Windows Default)
+
+| Event ID | Source | Description | SOC Red Flags |
+|----------|--------|-------------|---------------|
+| **4688** | Security Log | Process Creation (Default) | Suspicious command line, but lacks hash/signature details. |
+| **1** | Sysmon Log | Advanced Process Creation | **The Gold Standard.** Check for: Uncommon paths (`C:\Temp`), Weird parent-child (e.g., Word -> PowerShell), Unsigned binaries, Malicious Hashes (VirusTotal). |
+
+**Pro Tip:** Always use the **Logon ID** to correlate the initial suspicious login (4624) with the malicious process execution (Sysmon 1).
