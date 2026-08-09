@@ -35,6 +35,24 @@
 
 ---
 
+## Logon Types Reference (Critical for SOC)
+
+| Logon Type | Name | Description | SOC Use Case |
+|------------|------|-------------|--------------|
+| **2** | Interactive | User at console | Normal login |
+| **3** | Network | Network logon (SMB, WinRM) | 🔴 Detect lateral movement, botnets |
+| **4** | Batch | Scheduled tasks | 🟡 Check malicious tasks |
+| **5** | Service | Windows services | Normal |
+| **7** | Unlock | Screen unlock | Normal |
+| **8** | NetworkCleartext | Cleartext password | 🔴 Critical: password exposed |
+| **9** | NewCredentials | runas /netonly | 🟡 Check suspicious |
+| **10** | RemoteInteractive | RDP interactive | 🔴 Detect unauthorized RDP |
+| **11** | CachedInteractive | Cached credentials | Normal |
+
+**Pro Tip:** Focus on Type 3 and 10 from external IPs = High priority alerts!
+
+---
+
 ## 3️⃣ Sysmon Event IDs (The Gold Standard)
 
 | Event ID | Name | Purpose | SOC Red Flags |
