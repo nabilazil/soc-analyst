@@ -105,5 +105,13 @@
 3. **Context over Noise:** Focus on anomalies. Legitimate process in legitimate path = OK. Legitimate process (powershell.exe) in unusual path (C:\Temp\) = Red flag.
 4. **Check All Users:** PowerShell history exists for every user. Check `C:\Users\<USERNAME>\` for all suspicious accounts, not just Administrator.
 
+
+---
+
+| **Suspicious LNK/Phishing Execution** | Parent=`explorer.exe` AND Child=`powershell.exe`/`cmd.exe` AND CommandLine contains `DownloadFile` or `http` | Sysmon 1 | 🔴 Critical |
+| **Executable Launched from Removable Media** | Image path starts with removable drive letters (e.g., `E:\`, `F:\`) AND Parent=`explorer.exe` | Sysmon 1 | 🔴 High |
+| **Suspicious File Creation in Downloads** | TargetFilename contains `\Downloads\` AND ends with `.lnk`, `.exe`, `.scr`, or `.ps1` | Sysmon 11 | 🟡 Medium |
+
+
 ---
 *Built from hands-on practice: TryHackMe "Windows Logging for SOC" & LetsDefend scenarios.*
