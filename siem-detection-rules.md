@@ -109,9 +109,8 @@
 ---
 
 | **Suspicious LNK/Phishing Execution** | Parent=`explorer.exe` AND Child=`powershell.exe`/`cmd.exe` AND CommandLine contains `DownloadFile` or `http` | Sysmon 1 | 🔴 Critical |
-| **Executable Launched from Removable Media** | Image path starts with removable drive letters (e.g., `E:\`, `F:\`) AND Parent=`explorer.exe` | Sysmon 1 | 🔴 High |
+| **Executable Launched from Removable Media** | Image path starts with `E:\` or `F:\` AND Parent=`explorer.exe` | Sysmon 1 | 🔴 High |
 | **Suspicious File Creation in Downloads** | TargetFilename contains `\Downloads\` AND ends with `.lnk`, `.exe`, `.scr`, or `.ps1` | Sysmon 11 | 🟡 Medium |
-
 
 ---
 *Built from hands-on practice: TryHackMe "Windows Logging for SOC" & LetsDefend scenarios.*
