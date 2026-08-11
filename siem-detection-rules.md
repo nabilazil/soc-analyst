@@ -107,7 +107,8 @@
 
 
 ---
-
+|_|_|_
+|----------------|---------------------------------------------------------------------------|----------------------------------------------------------------------------|
 | **1 (Sysmon)** | Suspicious LNK/Phishing execution (explorer.exe spawns powershell/cmd) | Detect malicious shortcuts and phishing payloads executing via PowerShell/CMD |
 | **1 (Sysmon)** | Executable launched from removable media (e.g., E:\, F:\) by explorer.exe | Detect malware execution from infected USB drives or external media |
 | **11 (Sysmon)** | Suspicious file creation in Downloads folder (.lnk, .exe, .scr, .ps1) | Detect initial drop of malicious attachments or downloaded payloads |
