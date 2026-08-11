@@ -107,7 +107,7 @@
 
 
 ---
-|_|_|_|
+|_|_|_|_|
 |----------------------------------------------|-------------------------------------------------------------------------------------------------------|------------|----------|
 | **Suspicious LNK/Phishing Execution** | Parent=`explorer.exe` AND Child=`powershell.exe`/`cmd.exe` AND CommandLine contains `DownloadFile` or `http` | Sysmon 1 | 🔴 Critical |
 | **Executable Launched from Removable Media** | Image path starts with removable drive letters (e.g., `E:\`, `F:\`) AND Parent=`explorer.exe` | Sysmon 1 | 🔴 High |
