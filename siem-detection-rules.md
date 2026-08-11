@@ -107,11 +107,11 @@
 
 
 ---
-|_|_|_
-|----------------|---------------------------------------------------------------------------|----------------------------------------------------------------------------|
-| **1 (Sysmon)** | Suspicious LNK/Phishing execution (explorer.exe spawns powershell/cmd) | Detect malicious shortcuts and phishing payloads executing via PowerShell/CMD |
-| **1 (Sysmon)** | Executable launched from removable media (e.g., E:\, F:\) by explorer.exe | Detect malware execution from infected USB drives or external media |
-| **11 (Sysmon)** | Suspicious file creation in Downloads folder (.lnk, .exe, .scr, .ps1) | Detect initial drop of malicious attachments or downloaded payloads |
+|_|_|_|
+|----------------------------------------------|-------------------------------------------------------------------------------------------------------|------------|----------|
+| **Suspicious LNK/Phishing Execution** | Parent=`explorer.exe` AND Child=`powershell.exe`/`cmd.exe` AND CommandLine contains `DownloadFile` or `http` | Sysmon 1 | 🔴 Critical |
+| **Executable Launched from Removable Media** | Image path starts with removable drive letters (e.g., `E:\`, `F:\`) AND Parent=`explorer.exe` | Sysmon 1 | 🔴 High |
+| **Suspicious File Creation in Downloads** | TargetFilename contains `\Downloads\` AND ends with `.lnk`, `.exe`, `.scr`, or `.ps1` | Sysmon 11 | 🟡 Medium |
 
 ---
 *Built from hands-on practice: TryHackMe "Windows Logging for SOC" & LetsDefend scenarios.*
