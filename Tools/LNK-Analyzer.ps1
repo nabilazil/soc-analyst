@@ -33,5 +33,4 @@ powershell
    .\Analyze-LNK.ps1 -LnkPath "C:\Path\To\Suspicious\file.lnk"
 
 <img width="1489" height="659" alt="Image" src="https://github.com/user-attachments/assets/917598ef-5828-42bd-bedc-aa2b926faf14" />
-https://github.com/nabilazil/soc-analyst/issues/1#issue-5135103849
    
