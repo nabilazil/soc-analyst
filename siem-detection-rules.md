@@ -32,6 +32,9 @@
 | **4104** | PowerShell script | Detect malicious scripts (Script Block Logging) |
 | **4720** | User account created | Detect unauthorized backdoor accounts |
 | **4732** | User added to privileged group | Detect privilege escalation (e.g., added to Administrators) |
+| **4722** | Security | User account enabled | **Backdoor Activation:** Attackers often create a disabled admin account and enable it later. Triggered alongside 4720 (Account Created). |
+| **7045** | System | A service was installed | **Persistence Mechanism:** A new service was created on the system. **High Fidelity Alert:** If the service name or binary path is suspicious (e.g., in `C:\Temp\`), it indicates malware trying to survive reboots. |
+| **7036** | System | A service entered the running/stopped state | **Service Execution Tracking:** Tracks when a specific service (potentially malicious) was actually started or stopped. Correlate with 7045 to confirm execution. |
 
 ---
 
