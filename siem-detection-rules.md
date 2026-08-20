@@ -29,6 +29,7 @@
 | **4624** | Successful login | Track user access, check Logon Type (2=Interactive, 3=Network, 10=RDP) |
 | **4625** | Failed login | Detect brute force attacks |
 | **4688** | Process creation | Detect suspicious commands (requires Audit Policy enabled) |
+| **4698** | Scheduled task created | Detect persistence mechanisms (attackers creating scheduled tasks for auto-execution) |
 | **4104** | PowerShell script | Detect malicious scripts (Script Block Logging) |
 | **4720** | User account created | Detect unauthorized backdoor accounts |
 | **4732** | User added to privileged group | Detect privilege escalation (e.g., added to Administrators) |
