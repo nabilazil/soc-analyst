@@ -35,3 +35,18 @@ grep "new user" /var/log/auth.log
 
 # Check cron job executions
 grep "CRON" /var/log/syslog
+```
+## 🔑 Key Linux Hunting Keywords (SIEM / Splunk)
+
+When analyzing Linux logs in a SIEM (e.g., Splunk), use these keywords combined with `source="auth.log"` or `sourcetype=syslog` to detect malicious activity:
+
+| Keyword | Detection Purpose | Primary Log Source |
+|---------|-------------------|--------------------|
+| `"Failed password"` | SSH Brute Force attacks | `auth.log` |
+| `"Accepted password"` | Successful SSH logins | `auth.log` |
+| `"sudo"` | Privilege escalation attempts | `auth.log` |
+| `"su"` | User switching to root | `auth.log` |
+| `"useradd"` / `"usermod"` | New account creation or modification (Persistence) | `auth.log` |
+| `"CRON"` | Scheduled tasks (Persistence mechanism) | `syslog` |
+| `"truncate"` / `"rm -rf"` | Log clearing or file destruction (Anti-Forensics) | `auth.log` / `syslog` |
+| `"python"` / `"perl"` / `"bash -i"` | Reverse shell execution indicators | `syslog` |
