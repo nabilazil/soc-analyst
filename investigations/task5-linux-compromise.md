@@ -62,24 +62,24 @@ index=task5 sourcetype=syslog process=CRON
 # Key Learnings
 
 1. **Log Sources Used:**
-- **auth.log: Authentication events (SSH logins, sudo, su).**
-- **syslog: General system events (CRON jobs, services).
+   - auth.log: Authentication events (SSH logins, sudo, su).
+   - syslog: General system events (CRON jobs, services).
 
 2. **Detection Techniques:**
-Brute Force: Multiple "Failed password" followed by "Accepted password" from the same IP.
-Privilege Escalation: Tracking "sudo" and "su" commands in auth.log.
-Anti-Forensics: Detecting log clearing commands like "truncate".
-Persistence: Monitoring CRON jobs for suspicious scripts (python, perl, bash).
+   - Brute Force: Multiple "Failed password" followed by "Accepted password" from the same IP.
+   - Privilege Escalation: Tracking "sudo" and "su" commands in auth.log.
+   - Anti-Forensics: Detecting log clearing commands like "truncate".
+   - Persistence: Monitoring CRON jobs for suspicious scripts (python, perl, bash).
 
 3. **SOC Workflow:**
-Start with the initial alert (new user creation).
-Identify the attacker IP and brute-force attempts.
-Track privilege escalation to root.
-Find the persistence mechanism (malicious cron job).
+   - Start with the initial alert (new user creation).
+   - Identify the attacker IP and brute-force attempts.
+   - Track privilege escalation to root.
+   - Find the persistence mechanism (malicious cron job).
 
 4. **🎯 Flags Captured**
-Account Creation Timestamp: 2025-08-12 09:52:57
-User Who Escalated: jack-brown
-Attacker IP: 10.14.94.82
-Failed Login Attempts: 4
-Persistence Port: 7654
+   - Account Creation Timestamp: 2025-08-12 09:52:57
+   - User Who Escalated: jack-brown
+   - Attacker IP: 10.14.94.82
+   - Failed Login Attempts: 4
+   - Persistence Port: 7654
