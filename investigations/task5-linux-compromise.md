@@ -61,7 +61,7 @@ index=task5 sourcetype=syslog process=CRON
 
 # Key Learnings
 
-## Log Sources Used:
+1. Log Sources Used:
 auth.log: Authentication events (SSH logins, sudo, su).
 syslog: General system events (CRON jobs, services).
 
