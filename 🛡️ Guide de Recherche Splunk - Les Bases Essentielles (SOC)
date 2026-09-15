@@ -1,113 +1,128 @@
-# SOC Investigation – Suspicious Email Link
+# 🔎 SOC Investigation — Suspicious Email Link
 
-## Scenario
+> **TryHackMe | Splunk | Email Security | Log Analysis**
 
-An alert was triggered for an inbound email containing an external URL with potentially suspicious characteristics.
+## 📌 Scenario
 
-The objective of the investigation was to determine whether the recipient or any endpoint attempted to access the URL and whether the connection was allowed or blocked.
+An inbound email triggered a security alert because it contained an external link.
 
-## Alert Details
+**Objective:**
+Determine whether the URL was accessed by an endpoint and whether the connection was **allowed or blocked**.
 
-| Field       | Value                                                       |
-| ----------- | ----------------------------------------------------------- |
-| Data Source | Email                                                       |
-| Timestamp   | 2026-09-15 17:41:47                                         |
-| Subject     | Action Required: Finalize Your Onboarding Profile           |
-| Sender      | [onboarding@hrconnex.thm](mailto:onboarding@hrconnex.thm)   |
-| Recipient   | [j.garcia@thetrydaily.thm](mailto:j.garcia@thetrydaily.thm) |
-| Attachment  | None                                                        |
-| Direction   | Inbound                                                     |
-| URL         | `https://hrconnex.thm/onboarding/15400654060/j.garcia`      |
+---
 
-## Investigation Approach
+## 🚨 Alert
 
-The investigation was performed by correlating different security data sources.
-
-### 1. Email Logs
-
-Email logs were reviewed to identify:
-
-* Sender and recipient
-* Email subject
-* External URLs
-* Attachments
-* Email direction
-
-The email contained an external link but no attachment.
-
-### 2. Proxy Logs
-
-Proxy logs can be used to determine whether a user attempted to access a URL contained in an email.
-
-Example SPL:
-
-```spl
-index=<proxy_index> hrconnex.thm
+```text
+Subject: Action Required: Finalize Your Onboarding Profile
+Sender: onboarding@hrconnex.thm
+Recipient: j.garcia@thetrydaily.thm
+URL: https://hrconnex.thm/onboarding/15400654060/j.garcia
+Direction: Inbound
+Attachment: None
 ```
 
-The search should be performed against the correct proxy data source.
+---
 
-Important fields to review include:
+## 🧭 Investigation Flow
 
-* `src_ip`
-* `user`
-* `url`
-* `action`
-* `_time`
+```text
+📧 Email Alert
+      │
+      ▼
+🔗 Extract URL
+      │
+      ▼
+🛡️ Search Proxy Logs
+      │
+      ▼
+🌐 Correlate Network Activity
+      │
+      ▼
+✅ Determine: Allowed / Blocked / No Evidence
+```
 
-The `action` field can help determine whether the connection was allowed or blocked.
+---
 
-### 3. Network Logs
+## 🔍 Investigation
 
-Network logs can provide additional evidence about connections between endpoints and external destinations.
+### 1. Identify the URL
 
-Useful information includes:
+The email contained the following external URL:
 
-* Source IP
-* Destination IP
-* Destination port
-* Protocol
-* Timestamp
+```text
+https://hrconnex.thm/onboarding/15400654060/j.garcia
+```
 
-Network evidence can be correlated with the email timestamp to determine whether an endpoint contacted the suspicious destination.
+The presence of a URL alone does not confirm malicious activity.
 
-## Key Investigation Principle
+---
 
-A search returning `0 events` does **not automatically mean that the alert is a false positive**.
+### 2. Search Proxy Logs
 
-Before drawing a conclusion, the analyst must verify:
+Initial search:
 
-1. The correct data source was searched.
-2. The correct time range was selected.
-3. The search query matches the available fields.
-4. The relevant proxy/network logs are actually ingested into Splunk.
+```spl
+index=proxy hrconnex.thm
+```
 
-Only after validating these points can the absence of network activity be used as evidence.
+**Result:**
 
-## Data Source Overview
+```text
+0 events
+```
 
-| Data Source | Main Purpose                                                       |
-| ----------- | ------------------------------------------------------------------ |
-| Email       | Investigate messages, senders, recipients, links and attachments   |
-| Proxy       | Investigate web/URL access and allowed or blocked requests         |
-| Network     | Investigate network connections between endpoints and destinations |
-| Firewall    | Investigate network traffic that was allowed or blocked            |
-| Endpoint    | Investigate activity directly on the affected machine              |
+A second check was performed:
 
-## SOC Analyst Takeaway
+```spl
+index=proxy
+```
 
-This investigation demonstrates the importance of **log correlation**.
+**Result:**
 
-An email alert alone does not prove compromise. The analyst should correlate the email with proxy, network, firewall and endpoint telemetry to determine whether the suspicious URL was actually accessed and whether further investigation is required.
+```text
+0 events
+```
 
-### Skills Practiced
+⚠️ **Important:** A `0 events` result does not automatically mean the alert is a false positive.
 
-* SIEM investigation
-* Splunk SPL fundamentals
-* Email log analysis
-* Proxy log analysis
-* Network log correlation
-* Alert validation
-* False-positive analysis
-* SOC investigation methodology
+The analyst must first verify that:
 
+* the correct index is being searched;
+* proxy logs are actually available;
+* the time range is correct;
+* the relevant fields contain the expected URL/domain.
+
+---
+
+## 🧠 What I Learned
+
+### Data Sources
+
+| Source      | Used to investigate                            |
+| ----------- | ---------------------------------------------- |
+| 📧 Email    | Sender, recipient, links, attachments          |
+| 🛡️ Proxy   | Web/URL access and allowed/blocked requests    |
+| 🌐 Network  | Connections between endpoints and destinations |
+| 🔥 Firewall | Allowed/blocked network traffic                |
+| 💻 Endpoint | Activity occurring directly on the host        |
+
+### Key SOC Principle
+
+> **No evidence is not the same as evidence of no activity.**
+
+Before closing an alert, the analyst must verify that the correct telemetry was available and searched correctly.
+
+---
+
+## 🛠️ Skills Practiced
+
+`Splunk` `SPL` `SIEM` `Email Analysis` `Proxy Logs` `Network Logs` `Log Correlation` `Alert Triage` `False Positive Analysis`
+
+---
+
+## 📚 Lab
+
+**Platform:** TryHackMe
+**Focus:** SOC / SIEM Investigation
+**Tool:** Splunk
